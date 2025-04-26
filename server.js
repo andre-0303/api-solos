@@ -1,10 +1,14 @@
-require('dotenv').config();
-import { listen } from './app';
-import { connect } from 'mongoose';
+import app from "./app.js";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
-connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log('MongoDB conectado');
-    listen(3000, () => console.log('Servidor rodando na porta 3000'));
+    console.log("MongoDB conectado");
+    app.listen(3001, () =>
+      console.log(`Servidor rodando em http://localhost:${3001}`)
+    );
   })
-  .catch(err => console.error(err));
+  .catch((err) => console.error(err));
